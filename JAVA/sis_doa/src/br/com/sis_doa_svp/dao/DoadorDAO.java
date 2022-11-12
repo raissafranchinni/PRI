@@ -19,15 +19,14 @@ public class DoadorDAO {
             
             stmt = ConexaoDAO.con.createStatement();
             
-             String comando = "Insert into Doador (telefone, cpf, Ncasa, nome, endereco, bairro, genero, dataCadastro)"
+             String comando = "Insert into doador (cpf, telefone, numero,dataCadastro, nome, rua, bairro)"
                     +  " values ( "
                     + doadorDTO.getTelefone() + ", "
                     + doadorDTO.getCpf() + ", "
-                    + doadorDTO.getNcasa() + ", "
+                    + doadorDTO.getNumeroC() + ", "
                      + "'" +doadorDTO.getNome() + "', "
-                     + "'" +doadorDTO.getEndereco() + "', "
+                     + "'" +doadorDTO.getRua() + "', "
                      + "'" +doadorDTO.getBairro() + "', "
-                     + "'" +doadorDTO.getGenero() + "', "
                      + "'" +doadorDTO.getDataCadastro() + "')";
 
             stmt.execute(comando.toUpperCase());
@@ -56,7 +55,7 @@ public boolean excluirDoador(DoadorDTO doadorDTO) {
 
             stmt = ConexaoDAO.con.createStatement();
 
-            String comando = "Delete from Doador where doadorCOD = " + doadorDTO.getDoadorCOD();
+            String comando = "Delete from Doador where CodDoador  = " + doadorDTO.getCodDoador ();
 
 
             stmt.execute(comando);
@@ -84,14 +83,14 @@ public boolean excluirDoador(DoadorDTO doadorDTO) {
             String comando = "Update Doador set "
                     + "telefone = " + doadorDTO.getTelefone() + ", "
                     + "cpf = "+ doadorDTO.getCpf() + ", "
-                    + doadorDTO.getNcasa() + ", "
+                    + "numeroC"+ doadorDTO.getNumeroC() + ", "
                      + "'" +doadorDTO.getNome() + "', "
-                     + "'" +doadorDTO.getEndereco() + "', "
+                     + "'" +doadorDTO.getRua() + "', "
                      + "'" +doadorDTO.getBairro() + "', "
-                     + "'" +doadorDTO.getGenero() + "', "
                      + "'" +doadorDTO.getDataCadastro() + "' "
-                     +"where doadorcod = " + doadorDTO.getDoadorCOD();
+                     +"where CodDoador  = " + doadorDTO.getCodDoador ();
 
+          
                  stmt.execute(comando.toUpperCase());
     
             ConexaoDAO.con.commit();
@@ -130,7 +129,7 @@ public boolean excluirDoador(DoadorDTO doadorDTO) {
                     case 2:
                        comando = "Select c.* "+
                                  "from Doaodor c " +
-                                 "where c.doadorCOD = " + doadorDTO.getDoadorCOD();
+                                 "where c.doadorCOD = " + doadorDTO.getCodDoador();
 
                         break;
                     case 3:
