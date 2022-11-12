@@ -1,4 +1,3 @@
-
 package br.com.sis_doa_svp.view;
 
 import java.awt.Dimension;
@@ -17,17 +16,15 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
     ResultSet rs; //Variavel usada para preenchimeto da tabela e dos campos
     int gravar_alterar; //Variavel usada para saber se esta alterando o incluindo
     DefaultTableModel modelo_jtl_consultar_doador; //Variavel para guardar o modelo da tabela
-    private Object consultar_doador;
     
     public DoadorVIEW (){
         initComponents ();
-        this.setSize(768, 465);
+        this.setSize(996, 493);
         
         liberaCampos(false);
-        liberaBotoes(true, false, false, false, true);
+        liberaBotoes(true, false, true, false, false);
         //Atribui um modelo para manipular a tabela 
         modelo_jtl_consultar_doador = (DefaultTableModel) jtl_consultar_doador.getModel();
-
     }
 
     public void setPosicao() {
@@ -61,7 +58,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtl_consultar_doador = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         consultar_doador = new javax.swing.JTextField();
         btnConsultar = new javax.swing.JButton();
@@ -70,7 +67,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         btnSair = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
-        btnexcluir = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 255));
@@ -213,7 +210,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtl_consultar_doador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -229,7 +226,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtl_consultar_doador);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Nome:");
@@ -276,22 +273,47 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         btnNovo.setBackground(new java.awt.Color(153, 153, 255));
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/novo.png"))); // NOI18N
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnSair.setBackground(new java.awt.Color(153, 153, 255));
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/sair.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setBackground(new java.awt.Color(153, 153, 255));
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setBackground(new java.awt.Color(153, 153, 225));
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/salvar.png"))); // NOI18N
         btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
-        btnexcluir.setBackground(new java.awt.Color(153, 153, 255));
-        btnexcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/excluir.png"))); // NOI18N
-        btnexcluir.setText("EXCLUIR");
+        btnExcluir.setBackground(new java.awt.Color(153, 153, 255));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/excluir.png"))); // NOI18N
+        btnExcluir.setText("EXCLUIR");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -301,7 +323,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
                 .addGap(35, 35, 35)
                 .addComponent(btnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnexcluir)
+                .addComponent(btnExcluir)
                 .addGap(136, 136, 136)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -316,7 +338,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnexcluir)
+                    .addComponent(btnExcluir)
                     .addComponent(btnNovo)
                     .addComponent(btnCancelar)
                     .addComponent(btnSair))
@@ -361,17 +383,37 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void preencheTabela(String nome){
+        try{
+            modelo_jtl_consultar_doador.setNumRows(0);
+            doadorDTO.setNome(nome);
+            rs = doadorCTR.consultarDoador(doadorDTO, 1); 
+            while(rs.next()){
+                 modelo_jtl_consultar_doador.addRow(new Object[]{
+                  rs.getString("idAutor"),
+                  rs.getString("nome"),
+                });
+            }        
+        }
+        catch(Exception erTab){
+            System.out.println("Erro SQL: "+erTab);
+        }  
+    }
+    
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         preencheTabela(consultar_doador.getText().toUpperCase());
-                                                
+    }                                            
 
     private void liberaCampos(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
-    private void liberaBotoes(boolean b, boolean b0, boolean b1, boolean b2, boolean b3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e) {
+        btnNovo.setEnabled(a);
+        btnSalvar.setEnabled(b);
+        btnCancelar.setEnabled(c);
+        btnExcluir.setEnabled(d);
+        btnSair.setEnabled(e);
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
@@ -386,15 +428,34 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bairroActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSairActionPerformed
+                   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bairro;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnexcluir;
     private javax.swing.JTextField consultar_doador;
     private javax.swing.JFormattedTextField cpf;
     private javax.swing.JFormattedTextField data_de_cadastro;
@@ -408,7 +469,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtl_consultar_doador;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
@@ -418,32 +479,4 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField telefone;
     // End of variables declaration//GEN-END:variables
 
-    private boolean verificaPreenchimentoGeral() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void gravar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void alterar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void limpaCampos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void liberaCampos(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void liberaBotoes(boolean b, boolean b0, boolean b1, boolean b2, boolean b3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void preencheTabela(String toUpperCase) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
-

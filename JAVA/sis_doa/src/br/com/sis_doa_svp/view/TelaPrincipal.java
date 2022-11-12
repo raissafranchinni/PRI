@@ -70,6 +70,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         editMenu.setMnemonic('e');
         editMenu.setText("Sair");
+        editMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMenuMouseClicked(evt);
+            }
+        });
         menuBar.add(editMenu);
 
         setJMenuBar(menuBar);
@@ -103,6 +108,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.desktopPane.add(doadorVIEW);
         doadorVIEW.setVisible(true);
     }//GEN-LAST:event_menuItemDoadorActionPerformed
+
+    private void editMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMenuMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_editMenuMouseClicked
 
     /**
      * @param args the command line arguments
