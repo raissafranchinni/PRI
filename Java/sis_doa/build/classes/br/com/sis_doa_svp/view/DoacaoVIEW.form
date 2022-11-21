@@ -85,7 +85,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jtl_consultar_produtos" max="32767" attributes="0"/>
+                          <Component id="jtl_pesquisar_produtos" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btn_consultar_produtos" min="-2" pref="73" max="-2" attributes="0"/>
                       </Group>
@@ -149,7 +149,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btn_consultar_produtos" min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="jtl_consultar_produtos" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jtl_pesquisar_produtos" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -170,6 +170,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nomeDoador">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nomeDoadorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -231,7 +234,7 @@
             <Property name="text" type="java.lang.String" value="PRODUTOS:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtl_consultar_produtos">
+        <Component class="javax.swing.JTextField" name="jtl_pesquisar_produtos">
         </Component>
         <Component class="javax.swing.JButton" name="btn_consultar_produtos">
           <Properties>
@@ -250,7 +253,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable2">
+            <Component class="javax.swing.JTable" name="jtl_consultar_produtos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="0">
@@ -303,7 +306,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jtl_consultar_doacao" max="32767" attributes="0"/>
+                          <Component id="jtl_pesquisar_doacao" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btn_consultarDoacao" min="-2" pref="73" max="-2" attributes="0"/>
                       </Group>
@@ -319,7 +322,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtl_consultar_doacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtl_pesquisar_doacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btn_consultarDoacao" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
@@ -339,7 +342,7 @@
             <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtl_consultar_doacao">
+        <Component class="javax.swing.JTextField" name="jtl_pesquisar_doacao">
         </Component>
         <Component class="javax.swing.JButton" name="btn_consultarDoacao">
           <Properties>
@@ -358,7 +361,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="jtl_consultar_doacao">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="0">

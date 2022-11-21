@@ -318,7 +318,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -414,7 +414,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
             DoadorDTO.setdataCadastro(Integer.parseInt(dataCadastro.getText()));
             
             JOptionPane.showMessageDialog(null,
-                    doadorCTR.inserirdoador(doadorDTO)
+                    doadorCTR.inserirDoador(doadorDTO)
             );
         }
         catch(Exception e){

@@ -5,11 +5,17 @@
  */
 package br.com.sis_doa_svp.view;
 
+import br.com.sis_doa_svp.dto.DoacaoDTO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author raiss
  */
 public class DoacaoVIEW extends javax.swing.JInternalFrame {
+
+    private int gravar_alterar;
+    private Object NomeDoador;
 
     /**
      * Creates new form DoacaoVIEW
@@ -37,16 +43,16 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jtl_consultar_produtos = new javax.swing.JTextField();
+        jtl_pesquisar_produtos = new javax.swing.JTextField();
         btn_consultar_produtos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtl_consultar_produtos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jtl_consultar_doacao = new javax.swing.JTextField();
+        jtl_pesquisar_doacao = new javax.swing.JTextField();
         btn_consultarDoacao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtl_consultar_doacao = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
@@ -62,6 +68,12 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Nome do Doador:");
+
+        nomeDoador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeDoadorActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Código do Doador:");
@@ -91,7 +103,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtl_consultar_produtos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -107,7 +119,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jtl_consultar_produtos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,7 +131,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtl_consultar_produtos)
+                        .addComponent(jtl_pesquisar_produtos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_consultar_produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,7 +180,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_consultar_produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jtl_consultar_produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtl_pesquisar_produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,7 +200,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtl_consultar_doacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -204,7 +216,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtl_consultar_doacao);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -217,7 +229,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtl_consultar_doacao)
+                        .addComponent(jtl_pesquisar_doacao)
                         .addGap(18, 18, 18)
                         .addComponent(btn_consultarDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -229,7 +241,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(jtl_consultar_doacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtl_pesquisar_doacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_consultarDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,15 +361,11 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        excluir();
-        limpaCampos();
-        liberaCampos(false);
-        liberaBotoes(true, false, false, false, true);
-        preencheTabela(jtl_consultar_doacao.getText().toUpperCase());
+        this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btn_consultarDoacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarDoacaoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btn_consultarDoacaoActionPerformed
 
     private void btn_consultar_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultar_produtosActionPerformed
@@ -365,21 +373,220 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_consultar_produtosActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        excluir();
+        limpaCampos();
+        liberaCampos(false);
+        liberaBotoes(true, false, false, false, true);
+        preencheTabela(jtl_pesquisar_doacao.getText().toUpperCase());
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        if(verificaPreenchimentoNovo()){ 
+            if(gravar_alterar==1){
+                gravar();
+                gravar_alterar=0;
+                limpaCampos();
+                liberaCamposNovo(false);
+                liberaCamposFim(false);
+                liberaBotoes(true, false, false, false, true);
+            }
+            else{
+                if(gravar_alterar==2){
+                    if(verificaPreenchimentoFim()){
+                        alterar();
+                        //preencheTabela(pesquisa_nome_pes.getText().toUpperCase());
+                        gravar_alterar=0;
+                        limpaCampos();
+                        liberaCamposNovo(false);
+                        liberaCamposFim(false);
+                        liberaBotoes(true, false, false, false, true);
+                    } 
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Erro no Sistema!!!");
+                }
+            }
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
+        liberaCamposNovo(true);
+        liberaBotoes(false, true, true, false, true);
+        gravar_alterar=1;
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        limpaCampos();
+        liberaCamposNovo(false);
+        liberaCamposFim(false);
+        jtl_consultar_doacao.setNumRows(0);
+        liberaBotoes(true, false, false, false, true);
+        gravar_alterar=0;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void nomeDoadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeDoadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeDoadorActionPerformed
+
+     private void gravar() {
+        
+         try{
+            DoacaoDTO.setnomeDoador(nomeDoador.getText());
+            DoacaoDTO.setcodDoador(Integer.parseInt(codDoador.getText()));
+            DoacaoDTO.setdataDoacao(Integer.parseInt(dataDoacao.getText()));
+            
+            JOptionPane.showMessageDialog(null,
+                    doacaoCTR.inserirDoador(doacaoDTO)
+            );
+        }
+        catch(Exception e){
+            System.out.println("Erro ao Gravar" + e.getMessage());
+        }
+         
+     }
+    
+     private void excluir() {
+     if(JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Carro?","Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null,
+                    doadorCTR.excluirDoador(doadorDTO)
+            );
+       }   
+     }
+     
+     private void preencheTabela(String toUpperCase) {
+         try{
+            //Limpa todas as linhas
+            modelo_jtl_consultar_doador.setNumRows(0);
+
+            //Enquanto tiver linhas - faça
+            doadorDTO.set(nome);
+            rs = doadorCTR.consultarDoador(doadorDTO, 1); //1 = é a pesquisa por marca na classe DAO
+            while(rs.next()){
+                modelo_jtl_consultar_doador.addRow(new Object[]{
+                  rs.getString("codDoador"),
+                  rs.getString("nome"),
+                });
+            }        
+        }
+        catch(Exception erTab){
+            System.out.println("Erro SQL: "+erTab);
+        }  
+    }
+
+    private void liberaBotoes(boolean b, boolean b0, boolean b1, boolean b2, boolean b3) {
+    
+        btnNovo.setEnabled(a);
+        btnSalvar.setEnabled(b);
+        btnCancelar.setEnabled(c);
+        btnExcluir.setEnabled(d);
+        btnSair.setEnabled(e);
+        
+    }
+
+    private boolean verificaPreenchimentoGeral() {
+    
+    if(nome.getText().equalsIgnoreCase("")){
+              JOptionPane.showMessageDialog(null, "O campo Nome deve ser preenchido");
+              nome.requestFocus();
+              return false;
+        }
+        else{
+            if(telefone.getText().equalsIgnoreCase("")){
+                JOptionPane.showMessageDialog(null, "O campo Telefone deve ser preenchido");
+                telefone.requestFocus();
+                return false;
+            }
+            else{
+                if(rua.getText().equalsIgnoreCase("")){
+                    JOptionPane.showMessageDialog(null, "O campo Rua deve ser preenchido");
+                    rua.requestFocus();
+                    return false;
+                }
+                else{
+                    if(numeroC.getText().equalsIgnoreCase("")){
+                        JOptionPane.showMessageDialog(null, "O campo Numero casa deve ser preenchido");
+                        numeroC.requestFocus();
+                        return false;
+                    }
+                    
+                    else{
+                        if(bairro.getText().equalsIgnoreCase("")){
+                        JOptionPane.showMessageDialog(null, "O campo Bairro casa deve ser preenchido");
+                        bairro.requestFocus();
+                        return false;
+                    }
+                            
+                        else{
+                            if(cpf.getText().equalsIgnoreCase("")){
+                        JOptionPane.showMessageDialog(null, "O campo CPF casa deve ser preenchido");
+                        cpf.requestFocus();
+                        return false;
+                    }
+                            
+                            else{
+                                if(dataCadastro.getText().equalsIgnoreCase("")){
+                        JOptionPane.showMessageDialog(null, "O campo Data de Cadastro casa deve ser preenchido");
+                        dataCadastro.requestFocus();
+                        return false;
+                    }
+                    
+                    else{
+                        return true;
+                    
+                        }
+                        
+                              }  // dataCadastro
+                           } //cpf
+                        } //bairro 
+                    }//Fecha else numeroC
+                }//Fecha else rua
+            }//Fecha else telefone
+        }
+        
+    
+
+    private void alterar() {
+    
+        try{
+             DoadorDTO.setnome(nome.getText());
+            DoadorDTO.settelefone(Integer.parseInt(telefone.getText()));
+            DoadorDTO.setrua(rua.getText());
+            DoadorDTO.setnumeroC(Integer.parseInt(numeroC.getText()));
+            DoadorDTO.setbairro(bairro.getText());
+            DoadorDTO.setcpf(Integer.parseInt(cpf.getText()));
+            DoadorDTO.setdataCadastro(Integer.parseInt(dataCadastro.getText()));
+     
+            JOptionPane.showMessageDialog(null,
+                    doadorCTR.alterarDoador(doadorDTO)
+            );
+        }
+        catch(Exception e){}
+    
+    }
+
+    private void limpaCampos() {
+
+        nome.setText("");
+        telefone.setText("");
+        rua.setText("");
+        numeroC.setText("");
+        bairro.setText("");
+        cpf.setText("");
+        dataCadastro.setText("");
+
+}
+
+    private void liberaCampos(boolean b) {
+    
+        nome.setEnabled(a);
+        telefone.setEnabled(a);
+        rua.setEnabled(a);
+        numeroC.setEnabled(a);
+        bairro.setEnabled(a);
+        cpf.setEnabled(a);
+        dataCadastro.setEnabled(a);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -404,10 +611,10 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jtl_consultar_doacao;
-    private javax.swing.JTextField jtl_consultar_produtos;
+    private javax.swing.JTable jtl_consultar_doacao;
+    private javax.swing.JTable jtl_consultar_produtos;
+    private javax.swing.JTextField jtl_pesquisar_doacao;
+    private javax.swing.JTextField jtl_pesquisar_produtos;
     private javax.swing.JTextField nomeDoador;
     // End of variables declaration//GEN-END:variables
 
@@ -428,6 +635,30 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
     }
 
     private void preencheTabela(String toUpperCase) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean verificaPreenchimentoNovo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void gravar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void liberaCamposNovo(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void liberaCamposFim(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean verificaPreenchimentoFim() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void alterar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
