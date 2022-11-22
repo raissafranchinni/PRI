@@ -12,10 +12,12 @@ $string_connection = $conf["driver"] .
                 $conf["user"],
                 $conf["password"]
             );
+            /*
             if ($conf["debug"] == "true") {
                 echo "<h2>Sucesso!</h2>";
                 echo "<p>Conectado ao banco de dados <b>" . $conf["database"] . "</br></p>";
             }
+            */
         } catch (Exception $e) {
             echo "<p>Erro ao se conectar no banco de dados. </p>";
             echo$e->getMessage();

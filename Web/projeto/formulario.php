@@ -22,7 +22,7 @@ function imagePreview(valor){
     }
 }
 </script>
-<form action="inserir-pessoa.php" method="POST">
+<form action="inserir-doador.php" method="POST">
     <div class="row">
         <div class="col-8">
             <div class="mb-3">

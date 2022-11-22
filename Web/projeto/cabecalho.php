@@ -45,7 +45,7 @@
         }
 
         main{
-    background-image: url(tela fundo.png);
+    background-image: url('tela fundo.png');
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 95vh;
@@ -61,7 +61,7 @@
 <body>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
-            Cadastro de Doador
+            Sistema Gerenciador de Doações
         </a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -82,23 +82,7 @@
                     <a class="nav-link btn btn-danger btn-sm btn-block font-1 my-1">Sair</a>
                 </li>
             </ul>
-        </div>
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start pe-3 d-none d-sm-block">
-            <div class="text-end">
-                <button type="button" class="btn btn-light me-2">
-                    <span data-feather="log-in"></span>
-                    Entrar
-                </button>
-                <a href="formulario-usuarios.php" class="btn btn-info me-2">
-                <span data-feather="user-plus"></span>
-                    Cadastrar
-                </a>
-                <button type="button" class="btn btn-danger">
-                    <span data-feather="log-out"></span>
-                    Sair
-                </button>
-            </div>
-        </div>
+        </div> 
 
     </header>
 
@@ -121,7 +105,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link <?= ativa('formulario doacao.php'); ?>  " aria-current="page" href="formulario doacao.php">
+                            <a class="nav-link <?= ativa('formulario-doacao.php'); ?>  " aria-current="page" href="formulario-doacao.php">
                                 <span data-feather="file-text"></span>
                                 Cadastro de Doação
                             </a>
@@ -130,7 +114,14 @@
                         <li class="nav-item">
                             <a class="nav-link <?= ativa('listagem.php'); ?> " aria-current="page" href="listagem.php">
                                 <span data-feather="list"></span>
-                                Listagem de Cadastros
+                                Listagem de Doadores 
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link <?= ativa('listagem-doacao.php'); ?> " aria-current="page" href="listagem-doacao.php">
+                                <span data-feather="list"></span>
+                                Listagem de Doações
                             </a>
                         </li>
                         

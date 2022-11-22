@@ -1,9 +1,9 @@
 <?php
-$nome_pagina = "Listagem";
+$nome_pagina = "Listagem de Doadores";
 require "cabecalho.php";
 require "conexao.php";
 
-$sql = "select id, nome, urlfoto, sobre FROM pessoas order by id";
+$sql = "select * FROM doador order by CodDoador";
 $stmt = $conn->query($sql);
 
 ?>
@@ -12,35 +12,39 @@ $stmt = $conn->query($sql);
         <thead>
             <tr>
                 <th scope="col" style="width: 10%;">ID</th>
-                <th scope="col" style="width: 10%;">Nome</th>
-                <th scope="col" style="width: 10%;">Foto</th>
-                <th scope="col" style="width: 10%;">Sobre</th>
+                <th scope="col" style="width: 12%;">Nome</th> 
+                <th scope="col" style="width: 12%;">Telefone</th>
+                <th scope="col" style="width: 12%;">CPF</th>
+                <th scope="col" style="width: 12%;">Rua</th>
+                <th scope="col" style="width: 10%;">Número</th>
+                <th scope="col" style="width: 10%;">Bairro</th>
+                <th scope="col" style="width: 10%;">Data de cadastro</th>
                 <th scope="col" style="width: 10%;" colspan="2"></th>
-                </tr>
+            </tr>
         </thead>
         <tbody>
             <?php 
             while ($row = $stmt->fetch()){
             ?>
             <tr>
-                <td><?= $row['id'] ?></td>
+                <td><?= $row['coddoador'] ?></td>
                 <td><?= $row['nome'] ?></td>
-                <td>
-                    <a href="<?= $row['urlfoto'] ?>" target="_blank">
-                    <?= $row['urlfoto'] ?>
-                    </a>
-                </td>
-                <td><?= $row['sobre'] ?></td>
+                <td><?= $row['telefone'] ?></td>
+                <td><?= $row['cpf'] ?></td>
+                <td><?= $row['rua'] ?></td>
+                <td><?= $row['numero'] ?></td>
+                <td><?= $row['bairro'] ?></td>
+                <td><?= $row['datacadastro'] ?></td>
                 <td>
                     <a class="btn btn-sm btn-warning"
-                       href="formulario-alterar.php?id=<?= $row['id']; ?>">
+                       href="formulario-alterar.php?coddoador=<?= $row['coddoador']; ?>">
                         <span data-feather="edit"></span>
                         Editar
                     </a>
                 </td>
                 <td>
                     <a class="btn btn-sm btn-danger"
-                    href="excluir_pessoa.php?id=<?= $row['id']; ?>"
+                    href="excluir-doador.php?coddoador=<?= $row['coddoador']; ?>"
                     onclick="if(!confirm('Tem certeza que deseja excluir?')) return false;">
                         <span data-feather="trash-2"></span>
                         Excluir

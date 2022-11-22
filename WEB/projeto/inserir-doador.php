@@ -5,29 +5,26 @@ require "cabecalho.php";
 require "conexao.php";
 
 $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
-$telefone = filter_input(INPUT_POST, "telefone", FILTER_SANITIZE_SPECIAL_CHARS);
-$cpf = filter_input(INPUT_POST, "cpf", FILTER_SANITIZE_SPECIAL_CHARS);
-$endereço = filter_input(INPUT_POST, "endereço", FILTER_SANITIZE_SPECIAL_CHARS);
-$numero = filter_input(INPUT_POST, "numero", FILTER_SANITIZE_SPECIAL_CHARS);
+$telefone = filter_input(INPUT_POST, "telefone", FILTER_SANITIZE_NUMBER_INT);
+$cpf = filter_input(INPUT_POST, "cpf", FILTER_SANITIZE_NUMBER_INT);
+$numero = filter_input(INPUT_POST, "numero", FILTER_SANITIZE_NUMBER_INT);
 $bairro = filter_input(INPUT_POST, "bairro", FILTER_SANITIZE_SPECIAL_CHARS);
-$genero = filter_input(INPUT_POST, "genero", FILTER_SANITIZE_SPECIAL_CHARS);
+$rua = filter_input(INPUT_POST, "rua", FILTER_SANITIZE_SPECIAL_CHARS);
 $datacad = filter_input(INPUT_POST, "datacad", FILTER_SANITIZE_SPECIAL_CHARS);
-
 
 echo "<p>Nome: $nome</p>";
 echo "<p>Telefone: $telefone</p>";
 echo "<p>CPF: $cpf</p>";
-echo "<p>Endereço: $endereço</p>";
+echo "<p>Rua: $rua</p>";
 echo "<p>Numero: $numero</p>";
 echo "<p>Bairro: $bairro</p>";
-echo "<p>Gênero: $genero</p>";
 echo "<p>Data de Cadastro: $datacad</p>";
 
 
-$sql = "insert into pessoas(nome, telefone, cpf, endereço, numero, bairro, genero, datacad) values (?,?,?,?,?,?,?,?)";
+$sql = "insert into doador(nome, telefone, cpf, rua, numero, bairro, dataCadastro) values (?,?,?,?,?,?,?)";
 
 $stmt = $conn->prepare($sql);
-$result = $stmt->execute([$nome, $telefone, $cpf, $endereço, $numero, $bairro, $genero, $datacad]);
+$result = $stmt->execute([$nome, $telefone, $cpf, $rua, $numero, $bairro, $datacad]);
 
 if($result == true){
 ?>
