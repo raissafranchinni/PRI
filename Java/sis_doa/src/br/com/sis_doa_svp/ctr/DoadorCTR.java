@@ -45,7 +45,7 @@ public class DoadorCTR {
         }
       }
       
-      public String excluirDoador(DoadorDTO doadorDTO) {
+      public String excluirCarro(DoadorDTO doadorDTO) {
         try {
             //Chama o metodo que esta na classe DAO aguardando uma resposta (true ou false)
             if (doadorDAO.excluirDoador(doadorDTO)) {
@@ -60,12 +60,12 @@ public class DoadorCTR {
         }
       }
       
-        public ResultSet consultarDoador(DoadorDTO doadorDTO, int opcao) {
+        public ResultSet consultarCarro(DoadorDTO doadorDTO, int opcao) {
         //É criado um atributo do tipo ResultSet, pois este método recebe o resultado de uma consulta.
         ResultSet rs = null;
 
         //O atributo rs recebe a consulta realizada pelo método da classe DAO
-        rs = doadorDAO.consultarDoador(doadorDTO, opcao);
+        rs = doadorDAO.consultarCarro(doadorDTO, opcao);
 
         return rs;
     }

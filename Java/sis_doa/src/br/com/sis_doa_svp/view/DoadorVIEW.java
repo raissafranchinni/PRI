@@ -1,45 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.sis_doa_svp.view;
 
-import br.com.sis_doa_svp.dto.DoadorDTO;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import br.com.sis_doa_svp.dto.DoadorDTO;
+import br.com.sis_doa_svp.ctr.DoadorCTR;
+import java.awt.Component;
+import javax.swing.JPanel;
 
-/**
- *
- * @author Aluno
- */
 public class DoadorVIEW extends javax.swing.JInternalFrame {
+    DoadorDTO doadorDTO = new DoadorDTO();
+    DoadorCTR doadorCTR = new DoadorCTR();
+    
+    ResultSet rs; //Variavel usada para preenchimeto da tabela e dos campos
+    int gravar_alterar; //Variavel usada para saber se esta alterando o incluindo
+    DefaultTableModel modelo_jtl_consultar_doador; //Variavel para guardar o modelo da tabela
+    private Object consultar_doador;
+    
+    public DoadorVIEW (){
+        initComponents ();
+        this.setSize(768, 465);
+        
+        liberaCampos(false);
+        liberaBotoes(true, false, false, false, true);
+        //Atribui um modelo para manipular a tabela 
+        modelo_jtl_consultar_doador = (DefaultTableModel) jtl_consultar_doador.getModel();
 
-    private Object modelo_jtl_consultar_doador;
-    private int gravar_alterar;
-    private Object dataCadastro;
-    private Object doadorCTR;
-    private Object doadorDTO;
-    private Object rs;
-    private Object jtl_consultar_doador;
-    private Object nome;
-    private Object telefone;
-    private Object rua;
-    private Object numeroC;
-    private Object cpf;
-    private Object bairro;
-    private Object btnNovo;
-    private Object btnSalvar;
-    private Object btnCancelar;
-    private Object btnExcluir;
-    private Object btnSair;
-
-    /**
-     * Creates new form DoadorVIEW
-     */
-    public DoadorVIEW() {
-        initComponents();
     }
 
+    public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
+    }//Fecha método setPosicao()
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,34 +53,40 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         telefone = new javax.swing.JFormattedTextField();
         label4 = new javax.swing.JLabel();
         data_de_cadastro = new javax.swing.JFormattedTextField();
-        endereco = new javax.swing.JTextField();
+        rua = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         bairro = new javax.swing.JTextField();
-        numero_end = new javax.swing.JTextField();
+        numero = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jtl_consultar_doador = new javax.swing.JTextField();
+        consultar_doador = new javax.swing.JTextField();
         btnConsultar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnexcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 255));
         setTitle("Cadastro de Doadores");
-        getContentPane().setLayout(null);
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados"));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Nome:");
+
+        nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeActionPerformed(evt);
+            }
+        });
 
         label3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label3.setText("CPF:");
@@ -95,6 +96,11 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpfActionPerformed(evt);
+            }
+        });
 
         label2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label2.setText("Telefone:");
@@ -120,6 +126,12 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Bairro:");
 
+        bairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bairroActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Nº:");
 
@@ -131,76 +143,74 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nome))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(rua, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(label2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(label3)
+                                .addGap(18, 18, 18)
+                                .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(label4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(label3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(label4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(data_de_cadastro))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(bairro))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numero_end, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)))
+                                .addComponent(data_de_cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label2))
-                .addGap(11, 11, 11)
+                    .addComponent(label3)
+                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(label2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(numero_end, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3))
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label3))
-                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label4)
-                    .addComponent(data_de_cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(data_de_cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label4))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(32, 77, 400, 290);
-
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta"));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -208,7 +218,7 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CodDoador", "Nome"
+                "ID", "Nome"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -236,13 +246,13 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtl_consultar_doador, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(consultar_doador, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25))
@@ -253,331 +263,141 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtl_consultar_doador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(consultar_doador, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(508, 77, 448, 290);
-
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        btnNovo.setBackground(new java.awt.Color(153, 153, 255));
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/novo.png"))); // NOI18N
         btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
-            }
-        });
 
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/salvar.png"))); // NOI18N
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
+        btnSair.setBackground(new java.awt.Color(153, 153, 255));
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/sair.png"))); // NOI18N
         btnSair.setText("Sair");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/excluir.png"))); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
+        btnCancelar.setBackground(new java.awt.Color(153, 153, 255));
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
+
+        btnSalvar.setBackground(new java.awt.Color(153, 153, 225));
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/salvar.png"))); // NOI18N
+        btnSalvar.setText("SALVAR");
+
+        btnexcluir.setBackground(new java.awt.Color(153, 153, 255));
+        btnexcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/excluir.png"))); // NOI18N
+        btnexcluir.setText("EXCLUIR");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnExcluir)
-                .addGap(169, 169, 169)
+                .addGap(35, 35, 35)
+                .addComponent(btnSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnexcluir)
+                .addGap(136, 136, 136)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(27, 27, 27))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnexcluir)
+                    .addComponent(btnNovo)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnSair))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(32, 385, 924, 90);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Myanmar Text", 1, 20)); // NOI18N
         jLabel1.setText("Doador");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(443, 18, 73, 25);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(446, 446, 446))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        preencheCampos(Integer.parseInt(String.valueOf(jtl_consultar_doador.getValueAt(jtl_consultar_doador.getSelectedRow(), 0))));
-        liberaBotoes(false, true, true, true, true);
-    }//GEN-LAST:event_btnConsultarActionPerformed
+        preencheTabela(consultar_doador.getText().toUpperCase());
+                                                
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(verificaPreenchimentoGeral()){
-            if(gravar_alterar==1){
-                gravar();
-                gravar_alterar=0;
-            }
-            else{
-                if(gravar_alterar==2){
-                    alterar();
-                    preencheTabela(jtl_consultar_doador.getText().toUpperCase());
-                    gravar_alterar=0;
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Erro no Sistema!!!");
-                }
-            }
-            limpaCampos();
-            liberaCampos(false);
-            liberaBotoes(true, false, false, false, true);
-        }    
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-             limpaCampos();
-        liberaCampos(false);
-        modelo_jtl_consultar_doador.setNumRows(0);
-        liberaBotoes(true, false, false, false, true);
-        int gravar_alterar = 0;
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-       liberaCampos(true);
-        liberaBotoes(false, true, true, false, true);
-        gravar_alterar = 1;
-    }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluir();
-        limpaCampos();
-        liberaCampos(false);
-        liberaBotoes(true, false, false, false, true);
-        preencheTabela(jtl_consultar_doador.getText().toUpperCase());
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    
-     private void gravar() {
-        
-         try{
-            DoadorDTO.setnome(nome.getText());
-            DoadorDTO.settelefone(Integer.parseInt(telefone.getText()));
-            DoadorDTO.setrua(rua.getText());
-            DoadorDTO.setnumeroC(Integer.parseInt(numeroC.getText()));
-            DoadorDTO.setbairro(bairro.getText());
-            DoadorDTO.setcpf(Integer.parseInt(cpf.getText()));
-            DoadorDTO.setdataCadastro(Integer.parseInt(dataCadastro.getText()));
-            
-            JOptionPane.showMessageDialog(null,
-                    doadorCTR.inserirDoador(doadorDTO)
-            );
-        }
-        catch(Exception e){
-            System.out.println("Erro ao Gravar" + e.getMessage());
-        }
-         
-     }
-    
-     private void excluir() {
-     if(JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Carro?","Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(null,
-                    doadorCTR.excluirDoador(doadorDTO)
-            );
-       }   
-     }
-     
-     private void preencheTabela(String toUpperCase) {
-         try{
-            //Limpa todas as linhas
-            modelo_jtl_consultar_doador.setNumRows(0);
-
-            //Enquanto tiver linhas - faça
-            doadorDTO.set(nome);
-            rs = doadorCTR.consultarDoador(doadorDTO, 1); //1 = é a pesquisa por marca na classe DAO
-            while(rs.next()){
-                modelo_jtl_consultar_doador.addRow(new Object[]{
-                  rs.getString("codDoador"),
-                  rs.getString("nome"),
-                });
-            }        
-        }
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        }  
+    private void liberaCampos(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void liberaBotoes(boolean b, boolean b0, boolean b1, boolean b2, boolean b3) {
-    
-        btnNovo.setEnabled(a);
-        btnSalvar.setEnabled(b);
-        btnCancelar.setEnabled(c);
-        btnExcluir.setEnabled(d);
-        btnSair.setEnabled(e);
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
-    private boolean verificaPreenchimentoGeral() {
-    
-    if(nome.getText().equalsIgnoreCase("")){
-              JOptionPane.showMessageDialog(null, "O campo Nome deve ser preenchido");
-              nome.requestFocus();
-              return false;
-        }
-        else{
-            if(telefone.getText().equalsIgnoreCase("")){
-                JOptionPane.showMessageDialog(null, "O campo Telefone deve ser preenchido");
-                telefone.requestFocus();
-                return false;
-            }
-            else{
-                if(rua.getText().equalsIgnoreCase("")){
-                    JOptionPane.showMessageDialog(null, "O campo Rua deve ser preenchido");
-                    rua.requestFocus();
-                    return false;
-                }
-                else{
-                    if(numeroC.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo Numero casa deve ser preenchido");
-                        numeroC.requestFocus();
-                        return false;
-                    }
-                    
-                    else{
-                        if(bairro.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo Bairro casa deve ser preenchido");
-                        bairro.requestFocus();
-                        return false;
-                    }
-                            
-                        else{
-                            if(cpf.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo CPF casa deve ser preenchido");
-                        cpf.requestFocus();
-                        return false;
-                    }
-                            
-                            else{
-                                if(dataCadastro.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo Data de Cadastro casa deve ser preenchido");
-                        dataCadastro.requestFocus();
-                        return false;
-                    }
-                    
-                    else{
-                        return true;
-                    
-                        }
-                        
-                              }  // dataCadastro
-                           } //cpf
-                        } //bairro 
-                    }//Fecha else numeroC
-                }//Fecha else rua
-            }//Fecha else telefone
-        }
-        
-    
+    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeActionPerformed
 
-    private void alterar() {
-    
-        try{
-             DoadorDTO.setnome(nome.getText());
-            DoadorDTO.settelefone(Integer.parseInt(telefone.getText()));
-            DoadorDTO.setrua(rua.getText());
-            DoadorDTO.setnumeroC(Integer.parseInt(numeroC.getText()));
-            DoadorDTO.setbairro(bairro.getText());
-            DoadorDTO.setcpf(Integer.parseInt(cpf.getText()));
-            DoadorDTO.setdataCadastro(Integer.parseInt(dataCadastro.getText()));
-     
-            JOptionPane.showMessageDialog(null,
-                    doadorCTR.alterarDoador(doadorDTO)
-            );
-        }
-        catch(Exception e){}
-    
-    }
+    private void cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpfActionPerformed
 
-    private void limpaCampos() {
+    private void bairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bairroActionPerformed
 
-        nome.setText("");
-        telefone.setText("");
-        rua.setText("");
-        numeroC.setText("");
-        bairro.setText("");
-        cpf.setText("");
-        dataCadastro.setText("");
-
-}
-
-    private void liberaCampos(boolean b) {
-    
-        nome.setEnabled(a);
-        telefone.setEnabled(a);
-        rua.setEnabled(a);
-        numeroC.setEnabled(a);
-        bairro.setEnabled(a);
-        cpf.setEnabled(a);
-        dataCadastro.setEnabled(a);
-        
-    }
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bairro;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnexcluir;
+    private javax.swing.JTextField consultar_doador;
     private javax.swing.JFormattedTextField cpf;
     private javax.swing.JFormattedTextField data_de_cadastro;
-    private javax.swing.JTextField endereco;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -589,13 +409,41 @@ public class DoadorVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jtl_consultar_doador;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
     private javax.swing.JTextField nome;
-    private javax.swing.JTextField numero_end;
+    private javax.swing.JTextField numero;
+    private javax.swing.JTextField rua;
     private javax.swing.JFormattedTextField telefone;
     // End of variables declaration//GEN-END:variables
-  
+
+    private boolean verificaPreenchimentoGeral() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void gravar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void alterar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void limpaCampos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void liberaCampos(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void liberaBotoes(boolean b, boolean b0, boolean b1, boolean b2, boolean b3) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void preencheTabela(String toUpperCase) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
+

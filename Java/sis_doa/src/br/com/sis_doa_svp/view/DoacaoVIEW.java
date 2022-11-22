@@ -5,17 +5,11 @@
  */
 package br.com.sis_doa_svp.view;
 
-import br.com.sis_doa_svp.dto.DoacaoDTO;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author raiss
  */
 public class DoacaoVIEW extends javax.swing.JInternalFrame {
-
-    private int gravar_alterar;
-    private Object NomeDoador;
 
     /**
      * Creates new form DoacaoVIEW
@@ -38,21 +32,16 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
         nomeDoador = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         codDoador = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         dataDoacao = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        jtl_pesquisar_produtos = new javax.swing.JTextField();
-        btn_consultar_produtos = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtl_consultar_produtos = new javax.swing.JTable();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jtl_pesquisar_doacao = new javax.swing.JTextField();
+        consultar_doacao = new javax.swing.JTextField();
         btn_consultarDoacao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtl_consultar_doacao = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
@@ -63,20 +52,17 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(153, 153, 255));
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Casdastro de Doação"));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Nome do Doador:");
 
-        nomeDoador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeDoadorActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Código do Doador:");
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel3.setText("Selecione sua Doação:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Data da Doação:");
@@ -87,39 +73,12 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Listagem dos tipos de Produtos:");
-
-        jComboBox1.setBackground(new java.awt.Color(153, 153, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Comida", "Prod de Higiene", "Prod de Limpeza", "Dinheiro" }));
-
-        jLabel7.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
-        jLabel7.setText("PRODUTOS:");
-
-        btn_consultar_produtos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/pesquisar.png"))); // NOI18N
-        btn_consultar_produtos.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_consultar_produtosActionPerformed(evt);
+                jComboBox2ActionPerformed(evt);
             }
         });
-
-        jtl_consultar_produtos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                " Tipo", "Produto"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jtl_consultar_produtos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,12 +87,6 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtl_pesquisar_produtos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_consultar_produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -145,17 +98,18 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(nomeDoador, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
-                .addContainerGap())
+                                .addGap(18, 18, 18)
+                                .addComponent(dataDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,35 +126,22 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(dataDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_consultar_produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jtl_pesquisar_produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(156, 156, 156)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta"));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Código:");
 
         btn_consultarDoacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/pesquisar.png"))); // NOI18N
-        btn_consultarDoacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_consultarDoacaoActionPerformed(evt);
-            }
-        });
 
-        jtl_consultar_doacao.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -216,7 +157,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jtl_consultar_doacao);
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -225,11 +166,11 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtl_pesquisar_doacao)
+                        .addComponent(consultar_doacao)
                         .addGap(18, 18, 18)
                         .addComponent(btn_consultarDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -239,11 +180,11 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_consultarDoacao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(jtl_pesquisar_doacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_consultarDoacao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addComponent(consultar_doacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -251,48 +192,23 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Sitka Subheading", 1, 24)); // NOI18N
         jLabel5.setText("Doação");
 
-        jPanel3.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/novo.png"))); // NOI18N
         btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
-            }
-        });
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/salvar.png"))); // NOI18N
         btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/excluir.png"))); // NOI18N
         btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/sair.png"))); // NOI18N
         btnSair.setText("Sair");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/sis_doa_svp/view/imagens/cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -307,7 +223,7 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
@@ -334,14 +250,14 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                         .addGap(369, 369, 369)
                         .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,239 +270,16 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
-
-    private void btn_consultarDoacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarDoacaoActionPerformed
-        
-    }//GEN-LAST:event_btn_consultarDoacaoActionPerformed
-
-    private void btn_consultar_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultar_produtosActionPerformed
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_consultar_produtosActionPerformed
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluir();
-        limpaCampos();
-        liberaCampos(false);
-        liberaBotoes(true, false, false, false, true);
-        preencheTabela(jtl_pesquisar_doacao.getText().toUpperCase());
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(verificaPreenchimentoNovo()){ 
-            if(gravar_alterar==1){
-                gravar();
-                gravar_alterar=0;
-                limpaCampos();
-                liberaCamposNovo(false);
-                liberaCamposFim(false);
-                liberaBotoes(true, false, false, false, true);
-            }
-            else{
-                if(gravar_alterar==2){
-                    if(verificaPreenchimentoFim()){
-                        alterar();
-                        //preencheTabela(pesquisa_nome_pes.getText().toUpperCase());
-                        gravar_alterar=0;
-                        limpaCampos();
-                        liberaCamposNovo(false);
-                        liberaCamposFim(false);
-                        liberaBotoes(true, false, false, false, true);
-                    } 
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Erro no Sistema!!!");
-                }
-            }
-        }
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        liberaCamposNovo(true);
-        liberaBotoes(false, true, true, false, true);
-        gravar_alterar=1;
-    }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpaCampos();
-        liberaCamposNovo(false);
-        liberaCamposFim(false);
-        jtl_consultar_doacao.setNumRows(0);
-        liberaBotoes(true, false, false, false, true);
-        gravar_alterar=0;
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void nomeDoadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeDoadorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeDoadorActionPerformed
-
-     private void gravar() {
-        
-         try{
-            DoacaoDTO.setnomeDoador(nomeDoador.getText());
-            DoacaoDTO.setcodDoador(Integer.parseInt(codDoador.getText()));
-            DoacaoDTO.setdataDoacao(Integer.parseInt(dataDoacao.getText()));
-            
-            JOptionPane.showMessageDialog(null,
-                    doacaoCTR.inserirDoador(doacaoDTO)
-            );
-        }
-        catch(Exception e){
-            System.out.println("Erro ao Gravar" + e.getMessage());
-        }
-         
-     }
-    
-     private void excluir() {
-     if(JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Carro?","Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(null,
-                    doadorCTR.excluirDoador(doadorDTO)
-            );
-       }   
-     }
-     
-     private void preencheTabela(String toUpperCase) {
-         try{
-            //Limpa todas as linhas
-            modelo_jtl_consultar_doador.setNumRows(0);
-
-            //Enquanto tiver linhas - faça
-            doadorDTO.set(nome);
-            rs = doadorCTR.consultarDoador(doadorDTO, 1); //1 = é a pesquisa por marca na classe DAO
-            while(rs.next()){
-                modelo_jtl_consultar_doador.addRow(new Object[]{
-                  rs.getString("codDoador"),
-                  rs.getString("nome"),
-                });
-            }        
-        }
-        catch(Exception erTab){
-            System.out.println("Erro SQL: "+erTab);
-        }  
-    }
-
-    private void liberaBotoes(boolean b, boolean b0, boolean b1, boolean b2, boolean b3) {
-    
-        btnNovo.setEnabled(a);
-        btnSalvar.setEnabled(b);
-        btnCancelar.setEnabled(c);
-        btnExcluir.setEnabled(d);
-        btnSair.setEnabled(e);
-        
-    }
-
-    private boolean verificaPreenchimentoGeral() {
-    
-    if(nome.getText().equalsIgnoreCase("")){
-              JOptionPane.showMessageDialog(null, "O campo Nome deve ser preenchido");
-              nome.requestFocus();
-              return false;
-        }
-        else{
-            if(telefone.getText().equalsIgnoreCase("")){
-                JOptionPane.showMessageDialog(null, "O campo Telefone deve ser preenchido");
-                telefone.requestFocus();
-                return false;
-            }
-            else{
-                if(rua.getText().equalsIgnoreCase("")){
-                    JOptionPane.showMessageDialog(null, "O campo Rua deve ser preenchido");
-                    rua.requestFocus();
-                    return false;
-                }
-                else{
-                    if(numeroC.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo Numero casa deve ser preenchido");
-                        numeroC.requestFocus();
-                        return false;
-                    }
-                    
-                    else{
-                        if(bairro.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo Bairro casa deve ser preenchido");
-                        bairro.requestFocus();
-                        return false;
-                    }
-                            
-                        else{
-                            if(cpf.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo CPF casa deve ser preenchido");
-                        cpf.requestFocus();
-                        return false;
-                    }
-                            
-                            else{
-                                if(dataCadastro.getText().equalsIgnoreCase("")){
-                        JOptionPane.showMessageDialog(null, "O campo Data de Cadastro casa deve ser preenchido");
-                        dataCadastro.requestFocus();
-                        return false;
-                    }
-                    
-                    else{
-                        return true;
-                    
-                        }
-                        
-                              }  // dataCadastro
-                           } //cpf
-                        } //bairro 
-                    }//Fecha else numeroC
-                }//Fecha else rua
-            }//Fecha else telefone
-        }
-        
-    
-
-    private void alterar() {
-    
-        try{
-             DoadorDTO.setnome(nome.getText());
-            DoadorDTO.settelefone(Integer.parseInt(telefone.getText()));
-            DoadorDTO.setrua(rua.getText());
-            DoadorDTO.setnumeroC(Integer.parseInt(numeroC.getText()));
-            DoadorDTO.setbairro(bairro.getText());
-            DoadorDTO.setcpf(Integer.parseInt(cpf.getText()));
-            DoadorDTO.setdataCadastro(Integer.parseInt(dataCadastro.getText()));
-     
-            JOptionPane.showMessageDialog(null,
-                    doadorCTR.alterarDoador(doadorDTO)
-            );
-        }
-        catch(Exception e){}
-    
-    }
-
-    private void limpaCampos() {
-
-        nome.setText("");
-        telefone.setText("");
-        rua.setText("");
-        numeroC.setText("");
-        bairro.setText("");
-        cpf.setText("");
-        dataCadastro.setText("");
-
-}
-
-    private void liberaCampos(boolean b) {
-    
-        nome.setEnabled(a);
-        telefone.setEnabled(a);
-        rua.setEnabled(a);
-        numeroC.setEnabled(a);
-        bairro.setEnabled(a);
-        cpf.setEnabled(a);
-        dataCadastro.setEnabled(a);
-        
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -595,70 +288,21 @@ public class DoacaoVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btn_consultarDoacao;
-    private javax.swing.JButton btn_consultar_produtos;
     private javax.swing.JTextField codDoador;
+    private javax.swing.JTextField consultar_doacao;
     private javax.swing.JFormattedTextField dataDoacao;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jtl_consultar_doacao;
-    private javax.swing.JTable jtl_consultar_produtos;
-    private javax.swing.JTextField jtl_pesquisar_doacao;
-    private javax.swing.JTextField jtl_pesquisar_produtos;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nomeDoador;
     // End of variables declaration//GEN-END:variables
-
-    private void excluir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void limpaCampos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void liberaCampos(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void liberaBotoes(boolean b, boolean b0, boolean b1, boolean b2, boolean b3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void preencheTabela(String toUpperCase) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private boolean verificaPreenchimentoNovo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void gravar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void liberaCamposNovo(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void liberaCamposFim(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private boolean verificaPreenchimentoFim() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void alterar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

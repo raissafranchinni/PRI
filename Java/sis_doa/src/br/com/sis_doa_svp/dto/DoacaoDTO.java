@@ -4,8 +4,6 @@ package br.com.sis_doa_svp.dto;
 
 
 public class DoacaoDTO {
-
-   
    private int codDoacao,CodDoador,codProdutos, data;
    private String nomeDoador, tipoDoacao;
 

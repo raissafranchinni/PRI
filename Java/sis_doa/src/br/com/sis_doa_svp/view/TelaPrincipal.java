@@ -82,18 +82,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuItemDoadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDoadorActionPerformed
-        // TODO add your handling code here:
-        DoadorVIEW doadorVIEW = new DoadorVIEW();
-        this.desktopPane.add(doadorVIEW);
-        doadorVIEW.setVisible(true); 
-    }//GEN-LAST:event_menuItemDoadorActionPerformed
 
     private void menuItemDoacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDoacaoActionPerformed
         // TODO add your handling code here:
@@ -101,6 +96,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.desktopPane.add(doacaoVIEW);
         doacaoVIEW.setVisible(true);
     }//GEN-LAST:event_menuItemDoacaoActionPerformed
+
+    private void menuItemDoadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDoadorActionPerformed
+        // TODO add your handling code here:
+        DoadorVIEW doadorVIEW = new DoadorVIEW();
+        this.desktopPane.add(doadorVIEW);
+        doadorVIEW.setVisible(true);
+    }//GEN-LAST:event_menuItemDoadorActionPerformed
 
     /**
      * @param args the command line arguments

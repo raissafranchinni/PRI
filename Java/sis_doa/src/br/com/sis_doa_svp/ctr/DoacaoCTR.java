@@ -9,15 +9,17 @@ import br.com.sis_doa_svp.dto.DoadorDTO;
 
 public class DoacaoCTR {
     
-    DoacaoDAO doacaoDAO = new DoacaoDAO();
+    DoacaoCTR doacaoCTR = new DoacaoCTR();
+    private Object doacaoDAO;
     
     public DoacaoCTR(){
-    }
     
-      public String inserirDoacao(DoacaoDTO doacaoDTO) {
+  }
+    
+      public String inserirDoacao(DoacaoDTO doacaoDTO, DoadorDTO doadorDTO) {
         try {
             //Chama o metodo que esta na classe DAO aguardando uma resposta (true ou false)
-            if (doacaoDAO.inserirDoacao(doacaoDTO)) {
+            if (doacaoDAO.inserirDoacao(doacaoDTO, doadorDTO)) {
                 return "Doação Cadastrada com Sucesso!!!";
             } else {
                 return "Doação NÃO Cadastrada!!!";
@@ -49,7 +51,7 @@ public class DoacaoCTR {
         ResultSet rs = null;
 
         //O atributo rs recebe a consulta realizada pelo método da classe DAO
-        rs = doacaoDAO.consultarDoacao(doacaoDTO, opcao);
+        rs = doacaoDAO.consultarDoacao(doacaoDTO, doadorDTO, opcao);
 
         return rs;
     }
